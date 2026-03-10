@@ -1,0 +1,29 @@
+using System;
+namespace LinearSearch{
+    class LinearSearch{
+        public static void Main(string[] args){
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            for(int i=0;i<n;i++){
+                Console.Write("Enter the number at "+i+" : ");
+                a[i]=Convert.ToInt32(Console.ReadLine());
+            }
+            Console.WriteLine("The Original Array of Elements");
+            for(int i=0;i<n;i++){
+                Console.Write(a[i]+" ");
+            }
+            Console.WriteLine("\nThe Linear Search Element");
+            int search = Convert.ToInt32(Console.ReadLine());
+            bool found = false;
+            for(int i=0;i<n;i++){
+                if(search == a[i]){
+                    Console.WriteLine("Element Found at the position :"+i);
+                    found=true;
+                }
+            }
+            if(!found){
+                Console.WriteLine("Element Not Found");
+            }
+        }
+    }
+}
