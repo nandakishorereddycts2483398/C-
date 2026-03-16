@@ -1,0 +1,105 @@
+using System;
+
+namespace ATM_Machine
+{
+    public class ATM
+    { 
+        private int _balance;
+        private string _cardNumber = "1234-5678-9012-3456";
+
+        public ATM(int initialBalance)
+        {
+            _balance = initialBalance;
+        }
+
+        public void CheckBalance()
+        {
+            Console.WriteLine($"\n[BALANCE] Your current balance is: ${_balance}");
+        }
+
+        public void Deposit(int amount)
+        {
+            if (amount > 0)
+            {
+                _balance += amount;
+                Console.WriteLine($"\n[SUCCESS] You deposited ${amount}. New balance: ${_balance}");
+            }
+            else
+            {
+                Console.WriteLine("\n[ERROR] Invalid deposit amount.");
+            }
+        }
+
+        public void Withdraw(int amount)
+        {
+            if (amount <= 0)
+            {
+                Console.WriteLine("\n[ERROR] Please enter a valid amount.");
+            }
+            else if (amount > _balance)
+            {
+                Console.WriteLine("\n[DENIED] Insufficient funds.");
+            }
+            else
+            {
+                _balance -= amount;
+                Console.WriteLine($"\n[SUCCESS] Withdrawn: ${amount}. Remaining: ${_balance}");
+            }
+        }
+    }
+
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            ATM myAtm = new ATM(5000); // Initialize with $5000
+            bool isRunning = true;
+
+            Console.WriteLine("--- Welcome to the C# Bank ATM ---");
+
+            while (isRunning)
+            {
+                Console.WriteLine("\nChoose an option:");
+                Console.WriteLine("1. Check Balance");
+                Console.WriteLine("2. Withdraw Money");
+                Console.WriteLine("3. Deposit Money");
+                Console.WriteLine("4. Exit");
+                Console.Write("Selection: ");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        myAtm.CheckBalance();
+                        break;
+
+                    case "2":
+                        Console.Write("Enter amount to withdraw: ");
+                        if (int.TryParse(Console.ReadLine(), out int wAmount))
+                        {
+                            myAtm.Withdraw(wAmount);
+                        }
+                        break;
+
+                    case "3":
+                        Console.Write("Enter amount to deposit: ");
+                        if (int.TryParse(Console.ReadLine(), out int dAmount))
+                        {
+                            myAtm.Deposit(dAmount);
+                        }
+                        break;
+
+                    case "4":
+                        Console.WriteLine("Thank you for using our ATM. Goodbye!");
+                        isRunning = false;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid selection. Try again.");
+                        break;
+                }
+            }
+        }
+    }
+}
